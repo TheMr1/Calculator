@@ -1,0 +1,1 @@
+This project is a calculator, which supports a lot of different equations.
