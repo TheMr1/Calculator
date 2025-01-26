@@ -1,1 +1,1 @@
-This branch is dedicated towards calculus; a branch of math studying functions and infinity.
+Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape, and algebra is the study of generalizations of arithmetic operations.
