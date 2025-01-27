@@ -1,1 +1,1 @@
-Number theory is a branch of pure mathematics devoted primarily to the study of the integers and arithmetic functions.
+Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape, and algebra is the study of generalizations of arithmetic operations.

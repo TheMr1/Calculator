@@ -1,12 +1,14 @@
 import math
+from MainLibrary.MainPackage import BasicFunctions
+
+list_of_operations = ["+","-","*","/","^"]
 
 print('Available operations: ')
-print('"+", "-", "*", "/", "^"')
+print(list_of_operations)
+operation = BasicFunctions.ask_for_string("Choose the desired operation: ", list_of_operations)
 
-operation = input("Chose the desired operation: ")
-
-num1 = float(input("Input the first number: "))
-num2 = float(input("Input the second number: "))
+num1 = BasicFunctions.ask_for_float("Choose the first number: ", False)
+num2 = BasicFunctions.ask_for_float("Choose the second number: ", False)
 
 result = 0
 
