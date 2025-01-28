@@ -1,40 +1,53 @@
 import math
+from MainLibrary.MainPackage import BasicFunctions
+
+list_of_operations = ["nthroot", "!", "mod", "floor", "round", "ceil"]
 
 print('Available operations: ')
-print('"nthroot", "!", "mod", "floor", "round", "ceil"')
+print(list_of_operations)
 
-operation = input("Chose the desired operation: ")
+operation = BasicFunctions.ask_for_string("Choose the desired operation: ", list_of_operations)
 
-result = 0
+def attempt_to_calculate():
+    try:
+        if operation == 'nthroot':
+            num1 = BasicFunctions.ask_for_float("Input the radicand: ", False)
+            num2 = BasicFunctions.ask_for_float("Input the index: ", False)
 
-if operation == 'nthroot':
-    num1 = float(input("Input the radicand: "))
-    num2 = float(input("Input the index: "))
+            result1 = math.pow(num1, 1 / num2)
+        elif operation == 'mod':
+            num1 = BasicFunctions.ask_for_float("Input the first number: ", False)
+            num2 = BasicFunctions.ask_for_float("Input the second number: ", False)
 
-    result = math.pow(num1, 1/num2)
-elif operation == 'mod':
-    num1 = float(input("Input the first number: "))
-    num2 = float(input("Input the second number: "))
-
-    result = num1 % num2
-else:
-    num = float(input("Input the number: "))
-
-    if operation == "!":
-        if num < 0:
-            result = "Factorial not defined for negative values"
+            result1 = num1 % num2
         else:
-            result = math.factorial(math.floor(num))
-    elif operation == "floor":
-        result = math.floor(num)
-    elif operation == "round":
-        fraction = math.modf(num)[0]
-        if fraction >= 0.5:
-            fraction = 1
-        else:
-            fraction = 0
-        result = math.floor(num) + fraction
-    elif operation == "ceil":
-        result = math.ceil(num)
+            num = BasicFunctions.ask_for_float("Input the number: ", False)
+            result1 = 0
+
+            if operation == "!":
+                result1 = math.gamma(num + 1)
+            elif operation == "floor":
+                result1 = math.floor(num)
+            elif operation == "round":
+                fraction = math.modf(num)[0]
+                if fraction >= 0.5:
+                    fraction = 1
+                else:
+                    fraction = 0
+                result1 = math.floor(num) + fraction
+            elif operation == "ceil":
+                result1 = math.ceil(num)
+        return result1
+    except ValueError:
+        print("Cannot perform operation, try again.")
+        return attempt_to_calculate()
+    except OverflowError:
+        print("Cannot perform operation, try again.")
+        return attempt_to_calculate()
+    except ZeroDivisionError:
+        print("Cannot perform operation, try again.")
+        return attempt_to_calculate()
+
+result = attempt_to_calculate()
 
 print('The result is: ' + str(result))
