@@ -1,34 +1,38 @@
 import math
+from MainLibrary.MainPackage import BasicFunctions
+
+list_of_operations = ["sin", "cos", "tan", "csc", "sec", "cot"]
 
 print('Available operations: ')
-print('"sin", "cos", "tan", "csc", "sec", "cot"')
+print(list_of_operations)
 
-operation = input("Chose the desired operation: ")
+operation = BasicFunctions.ask_for_string("Choose the desired operation: ", list_of_operations)
 
-num = float(input("Input the number in radians: "))
+def attempt_to_calculate():
+    num = BasicFunctions.ask_for_float("Input the number in radians: ", False)
 
-result = 0
+    try:
+        if operation == 'sin':
+            result1 = math.sin(num)
+        elif operation == 'cos':
+            result1 = math.cos(num)
+        elif operation == 'tan':
+            result1 = math.tan(num)
+        elif operation == 'csc':
+            result1 = 1 / math.sin(num)
+        elif operation == 'sec':
+            result1 = 1 / math.cos(num)
+        elif operation == 'cot':
+            result1 = 1 / math.tan(num)
 
-if operation == 'sin':
-    result = math.sin(num)
-elif operation == 'cos':
-    result = math.cos(num)
-elif operation == 'tan':
-    result = math.tan(num)
-elif operation == 'csc':
-    if math.sin(num) == 0:
-        result = "Cannot divide by zero"
-    else:
-        result = 1 / math.sin(num)
-elif operation == 'sec':
-    if math.cos(num) == 0:
-        result = "Cannot divide by zero"
-    else:
-        result = 1 / math.cos(num)
-elif operation == 'cot':
-    if math.tan(num) == 0:
-        result = "Cannot divide by zero"
-    else:
-        result = 1 / math.tan(num)
+        return result1
+    except OverflowError:
+        print('Cannot perform operation, try again.')
+        return attempt_to_calculate()
+    except ZeroDivisionError:
+        print('Cannot perform operation, try again.')
+        return attempt_to_calculate()
+
+result = attempt_to_calculate()
 
 print('The result is: ' + str(result))
