@@ -4,7 +4,7 @@ def ask_for_string(text, possible_values):
         if possible_values.__contains__(current_string):
             return current_string
         else:
-            print('Invalid operation, try again.')
+            print('Invalid input, try again.')
             return ask_for_string(text, possible_values)
     else:
         return current_string
