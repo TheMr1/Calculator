@@ -34,7 +34,7 @@ elif style == "Expression":
     result = GeneralFunctions.expression_style()
 elif style == "RPN":
     result = GeneralFunctions.rpn_style(list_of_operations)
-    #3 2 ^ 16 2 nthroot + 10 6 - * 5 / 2 3 ^ + 25 2 nthroot -
+    #3 2 ^ 9 2 nthroot + 8 6 - * 5 / 2 3 ^ + 16 2 nthroot -
 
 if result["OK"]:
     print('The result is: ' + str(float(result["calculated_value"])))

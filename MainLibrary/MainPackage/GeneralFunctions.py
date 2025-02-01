@@ -74,7 +74,7 @@ def rpn_style(list_of_operations):
         print("Stack1: " + str(stacks["Stack1"]))
         print("Stack2: " + str(stacks["Stack2"]))
         print("Stack3: " + str(stacks["Stack3"]))
-        print(current_stack)
+        #print(current_stack)
 
     result["OK"] = True
     result["calculated_value"] = stacks["Stack1"]
