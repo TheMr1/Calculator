@@ -1,7 +1,7 @@
 #import math
 
 from MainLibrary.MainPackage import BasicFunctions
-from MainLibrary.MainPackage import AdvancedFunctions
+#from MainLibrary.MainPackage import AdvancedFunctions
 from MainLibrary.MainPackage import GeneralFunctions
 
 from_file1 = False
@@ -58,28 +58,12 @@ elif input_type == "Manual":
     print(list_of_operations)
 
     if style == "Old":
-        operation = BasicFunctions.ask_for_string("Choose the desired operation: ", list_of_operations)
-
-        num1 = BasicFunctions.ask_for_float("Choose the first number: ", False)
-        num2 = BasicFunctions.ask_for_float("Choose the second number: ", False)
-
-        result = BasicFunctions.calculate(operation, num1, num2)
+        result = GeneralFunctions.old_style(list_of_operations)
     elif style == "Expression":
-        expression = input("Input your desired expression (parentheses are ignored): ")
-        expression_value = 0
-        try:
-            expression_value = AdvancedFunctions.solve_expression(expression)
-            result['OK'] = True
-            result['calculated_value'] = expression_value
-        except IndexError:
-            result['OK'] = False
-            result['error_message'] = 'IndexError'
-        except ZeroDivisionError:
-            result['OK'] = False
-            result['error_message'] = 'ZeroDivisionError'
+        result = GeneralFunctions.expression_style()
     elif style == "RPN":
         result = GeneralFunctions.rpn_style(list_of_operations)
-        #3 2 ^ 16 sqrt + 10 6 - * 5 / 2 3 ^ + 25 sqrt -
+        #3 2 ^ 16 2 nthroot + 10 6 - * 5 / 2 3 ^ + 25 2 nthroot -
 
 
 if result["OK"]:

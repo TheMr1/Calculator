@@ -14,12 +14,17 @@ def solve_expression(expression):
 
     for i1 in range(0, expression.__len__()):
         i = expression[i1]
-        if (i == "+") or (i == "-") or (i == "*") or (i == "/") or (i == "^"):
+        if (i == "+") or (i == "-") or (i == "*") or (i == "/") or (i == "^") or (i == "n"):
             if i == '-':
                 if expression[i1 + 1].isnumeric():
                     pass
                 else:
                     operators.append(i)
+                    number_streak, numbers_start = add_number_streak(number_streak, numbers_start)
+                    continue
+            elif i == 'n':
+                if expression[i1:i1+7] == 'nthroot':
+                    operators.append('nthroot')
                     number_streak, numbers_start = add_number_streak(number_streak, numbers_start)
                     continue
             else:
@@ -63,16 +68,19 @@ def solve_expression(expression):
         else:
             combined_list.append(operators[int((i - 1) / 2)])
 
-    #print(combined_list)
+    # (combined_list)
 
     def find_current_operator():
         current_operator1 = 0
 
-        if combined_list.__contains__("^"):
+        if combined_list.__contains__("^") or combined_list.__contains__("nthroot"):
             for i1 in range(0, combined_list.__len__()):
                 i = combined_list[i1]
 
                 if i == "^":
+                    current_operator1 = i1
+                    break
+                elif i == "nthroot":
                     current_operator1 = i1
                     break
         elif combined_list.__contains__("*") or combined_list.__contains__("/"):
