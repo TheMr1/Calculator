@@ -12,22 +12,28 @@ def solve_expression(expression):
             number_streak1 = []
         return number_streak1, numbers_start1
 
+    previous_sign = '' #operator / number
+
     for i1 in range(0, expression.__len__()):
         i = expression[i1]
+
         if (i == "+") or (i == "-") or (i == "*") or (i == "/") or (i == "^") or (i == "n"):
             if i == '-':
-                if expression[i1 + 1].isnumeric():
+                if previous_sign == 'operator':
                     pass
                 else:
+                    previous_sign = 'operator'
                     operators.append(i)
                     number_streak, numbers_start = add_number_streak(number_streak, numbers_start)
                     continue
             elif i == 'n':
                 if expression[i1:i1+7] == 'nthroot':
+                    previous_sign = 'operator'
                     operators.append('nthroot')
                     number_streak, numbers_start = add_number_streak(number_streak, numbers_start)
                     continue
             else:
+                previous_sign = 'operator'
                 operators.append(i)
                 number_streak, numbers_start = add_number_streak(number_streak, numbers_start)
                 continue
@@ -41,10 +47,18 @@ def solve_expression(expression):
 
         if current_num != 'e' or i == '.' or i == '-':
             if i == '.' or i == '-':
-                number_streak.append(i)
+                if i == '-':
+                    previous_sign = 'number'
+                    number_streak, numbers_start = add_number_streak(number_streak, numbers_start)
+                    number_streak.append(i)
+                else:
+                    previous_sign = 'number'
+                    number_streak.append(i)
             else:
+                previous_sign = 'number'
                 number_streak.append(current_num)
         else:
+            previous_sign = 'number'
             number_streak, numbers_start = add_number_streak(number_streak, numbers_start)
 
     number_streak, numbers_start = add_number_streak(number_streak, numbers_start)
@@ -68,7 +82,7 @@ def solve_expression(expression):
         else:
             combined_list.append(operators[int((i - 1) / 2)])
 
-    # (combined_list)
+    # print(combined_list)
 
     def find_current_operator():
         current_operator1 = 0
@@ -115,5 +129,7 @@ def solve_expression(expression):
             solve_equation()
 
     solve_equation()
+
+    #print('result:', combined_list[0])
 
     return combined_list[0]
