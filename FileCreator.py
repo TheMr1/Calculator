@@ -4,11 +4,12 @@ from MainLibrary.MainPackage import AdvancedFunctions
 
 start_time = time.time()
 
-list_of_operations = ["+","-","*","/","^","nthroot"]
+iterations = 500000
 
+list_of_operations = ["+","-","*","/","^","nthroot"]
 expressions = open("Expressions.txt", 'w')
 
-for i in range(0, 1000):
+for i in range(0, iterations):
     current_expression = AdvancedFunctions.generate_expression(4, list_of_operations)
 
     expressions.write(current_expression + "\n")
@@ -18,7 +19,7 @@ expressions.close()
 results = open("Results.txt", 'w')
 
 with open('Expressions.txt', mode='r') as readable_file:
-    for i in range(0, 1000):
+    for i in range(0, iterations):
         expression = readable_file.readline()
         expression = expression[0:expression.__len__() -2]
         result = AdvancedFunctions.solve_expression(expression)
