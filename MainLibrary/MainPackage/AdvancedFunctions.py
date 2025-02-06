@@ -1,3 +1,5 @@
+from random import randint
+
 from MainLibrary.MainPackage import BasicFunctions
 
 def solve_expression(expression):
@@ -12,10 +14,13 @@ def solve_expression(expression):
             number_streak1 = []
         return number_streak1, numbers_start1
 
-    previous_sign = '' #operator / number
+    previous_sign = 'operator' #operator / number
 
     for i1 in range(0, expression.__len__()):
         i = expression[i1]
+
+        if i == " " or 'throot'.__contains__(i):
+            continue
 
         if (i == "+") or (i == "-") or (i == "*") or (i == "/") or (i == "^") or (i == "n"):
             if i == '-':
@@ -82,8 +87,6 @@ def solve_expression(expression):
         else:
             combined_list.append(operators[int((i - 1) / 2)])
 
-    # print(combined_list)
-
     def find_current_operator():
         current_operator1 = 0
 
@@ -117,11 +120,17 @@ def solve_expression(expression):
     def solve_equation():
         current_operator = find_current_operator()
 
-        combined_list[current_operator] = \
-        BasicFunctions.calculate(combined_list[current_operator], combined_list[current_operator - 1],
-                                 combined_list[current_operator + 1])["calculated_value"]
-        combined_list.pop(current_operator + 1)
-        combined_list.pop(current_operator - 1)
+        result = BasicFunctions.calculate(combined_list[current_operator], combined_list[current_operator - 1],
+                                 combined_list[current_operator + 1])
+
+        if result["OK"]:
+            combined_list[current_operator] = result["calculated_value"]
+            combined_list.pop(current_operator + 1)
+            combined_list.pop(current_operator - 1)
+        else:
+            combined_list[0] = result['error_message']
+            return
+
 
         #print(combined_list)
 
@@ -133,3 +142,16 @@ def solve_expression(expression):
     #print('result:', combined_list[0])
 
     return combined_list[0]
+
+def generate_expression(max_operators, list_of_operations : list):
+    operators = randint(1, max_operators)
+    expression = ''
+
+    for i in range(0, 2 * operators + 1):
+        if i % 2 == 0:
+            expression += str(randint(-100, 100))
+        else:
+            expression += list_of_operations[randint(0,list_of_operations.__len__() - 1)]
+        expression += " "
+
+    return expression
