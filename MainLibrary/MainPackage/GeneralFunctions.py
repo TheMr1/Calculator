@@ -1,3 +1,5 @@
+import math
+
 from MainLibrary.MainPackage import BasicFunctions
 from MainLibrary.MainPackage import AdvancedFunctions
 
@@ -80,3 +82,20 @@ def rpn_style(list_of_operations):
     result["calculated_value"] = stacks["Stack1"]
 
     return result
+
+def break_down_writing_expressions(start_from, iterations, amount_of_threads, list_of_operations):
+    start = math.floor((iterations / amount_of_threads) * start_from)
+    end = start + math.floor(iterations / amount_of_threads)
+
+    if start_from == amount_of_threads - 1:
+        end = iterations
+
+    list1 = []
+
+    for i in range(start, end):
+        current_expression = AdvancedFunctions.generate_expression(10, list_of_operations)
+
+        list1.append(current_expression + "\n")
+
+    return list1
+
